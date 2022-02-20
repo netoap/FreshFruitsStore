@@ -8,42 +8,51 @@ using System.Web;
 using System.Web.Mvc;
 using FreshFruitsStore.DAL;
 using FreshFruitsStore.Models;
+using FreshFruitsStore.ViewModels;
 
 namespace FreshFruitsStore.Controllers
 {
     public class ProductsController : Controller
     {
+
         private StoreContext db = new StoreContext();
 
         // GET: Products
         public ActionResult Index(string category, string search)
         {
-            var products = db.Products.Include(p => p.Category);
+            ProductIndexViewModel viewModel = new ProductIndexViewModel();
 
-            /*if (!String.IsNullOrEmpty(category))
-            {
-                products = products.Where(p => p.Category.Name == category);
-            }*/
+            var products = db.Products.Include(p => p.Category);
 
             if (!String.IsNullOrEmpty(search))
             {
                 products = products.Where(p => p.Name.Contains(search) ||
                 p.Description.Contains(search) ||
                 p.Category.Name.Contains(search));
-                ViewBag.Search = search;
+                viewModel.Search = search;
             }
 
-            
-            var categories = products.OrderBy(p => p.Category.Name).Select(p => p.Category.Name).Distinct();
+            viewModel.CatsWithCount = from matchingProducts in products
+                                      where
+                                      matchingProducts.CategoryID != null
+                                      group matchingProducts by
+                                      matchingProducts.Category.Name into
+                                      catGroup
+                                      select new CategoryWithCount()
+                                      {
+                                          CategoryName = catGroup.Key,
+                                          ProductCount = catGroup.Count()
+                                      };
+
 
             if (!String.IsNullOrEmpty(category))
             {
                 products = products.Where(p => p.Category.Name == category);
             }
 
-            ViewBag.Category = new SelectList(categories);
+            viewModel.Products = products;
 
-            return View(products.ToList());
+            return View(viewModel);
         }
 
         // GET: Products/Details/5
