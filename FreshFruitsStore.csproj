@@ -180,6 +180,18 @@
     <Compile Include="Migrations\202202131403292_InitialCreate.Designer.cs">
       <DependentUpon>202202131403292_InitialCreate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202202201951340_InitialDatabase.cs" />
+    <Compile Include="Migrations\202202201951340_InitialDatabase.Designer.cs">
+      <DependentUpon>202202201951340_InitialDatabase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202202202211465_CategoryNameValidation.cs" />
+    <Compile Include="Migrations\202202202211465_CategoryNameValidation.Designer.cs">
+      <DependentUpon>202202202211465_CategoryNameValidation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202202202258245_Initial.cs" />
+    <Compile Include="Migrations\202202202258245_Initial.Designer.cs">
+      <DependentUpon>202202202258245_Initial.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Category.cs" />
@@ -276,6 +288,15 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202202131403292_InitialCreate.resx">
       <DependentUpon>202202131403292_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202202201951340_InitialDatabase.resx">
+      <DependentUpon>202202201951340_InitialDatabase.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202202202211465_CategoryNameValidation.resx">
+      <DependentUpon>202202202211465_CategoryNameValidation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202202202258245_Initial.resx">
+      <DependentUpon>202202202258245_Initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

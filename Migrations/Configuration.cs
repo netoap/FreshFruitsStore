@@ -10,7 +10,6 @@ namespace FreshFruitsStore.Migrations
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
-            ContextKey = "FreshFruitsStore.DAL.StoreContext";
         }
 
         protected override void Seed(FreshFruitsStore.DAL.StoreContext context)
