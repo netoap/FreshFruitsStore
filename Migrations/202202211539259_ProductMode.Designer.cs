@@ -7,13 +7,13 @@ namespace FreshFruitsStore.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class CategoryNameValidation : IMigrationMetadata
+    public sealed partial class ProductMode : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(CategoryNameValidation));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(ProductMode));
         
         string IMigrationMetadata.Id
         {
-            get { return "202202202211465_CategoryNameValidation"; }
+            get { return "202202211539259_ProductMode"; }
         }
         
         string IMigrationMetadata.Source

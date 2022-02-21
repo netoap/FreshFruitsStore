@@ -3,7 +3,7 @@ namespace FreshFruitsStore.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class InitialDatabase : DbMigration
+    public partial class Initial : DbMigration
     {
         public override void Up()
         {

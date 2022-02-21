@@ -13,7 +13,7 @@ namespace FreshFruitsStore.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "202202202258245_Initial"; }
+            get { return "202202211526549_Initial"; }
         }
         
         string IMigrationMetadata.Source

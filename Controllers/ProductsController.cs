@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using FreshFruitsStore.DAL;
 using FreshFruitsStore.Models;
 using FreshFruitsStore.ViewModels;
+using PagedList;
 
 namespace FreshFruitsStore.Controllers
 {
@@ -18,7 +19,7 @@ namespace FreshFruitsStore.Controllers
         private StoreContext db = new StoreContext();
 
         // GET: Products
-        public ActionResult Index(string category, string search)
+        public ActionResult Index(string category, string search, string sortBy, int? page)
         {
             ProductIndexViewModel viewModel = new ProductIndexViewModel();
 
@@ -48,9 +49,32 @@ namespace FreshFruitsStore.Controllers
             if (!String.IsNullOrEmpty(category))
             {
                 products = products.Where(p => p.Category.Name == category);
+                viewModel.Category = category;
             }
 
-            viewModel.Products = products;
+            switch (sortBy)
+            {
+                case "price_lowest":
+                    products = products.OrderBy(p => p.Price);
+                    break;
+                case "price_highest":
+                    products = products.OrderByDescending(p => p.Price);
+                    break;
+                default:
+                    products = products.OrderBy(p => p.Name);
+                    break;
+            }
+
+            //viewModel.Products = products;
+            const int PageItems = 3;
+            int currentPage = (page ?? 1);
+            viewModel.Products = products.ToPagedList(currentPage, PageItems);
+            viewModel.SortBy = sortBy;
+            viewModel.Sorts = new Dictionary<string, string>
+            {
+                {"Price low to high", "price_lowest" },
+                {"Price high to low", "price_highest" }
+            };
 
             return View(viewModel);
         }
