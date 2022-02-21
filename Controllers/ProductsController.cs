@@ -65,7 +65,6 @@ namespace FreshFruitsStore.Controllers
                     break;
             }
 
-            //viewModel.Products = products;
             const int PageItems = 3;
             int currentPage = (page ?? 1);
             viewModel.Products = products.ToPagedList(currentPage, PageItems);
