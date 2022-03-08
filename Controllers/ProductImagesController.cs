@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
+using System.Data.SqlClient;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -43,43 +46,96 @@ namespace FreshFruitsStore.Controllers
             return View();
         }
 
-        // POST: ProductImages/Upload
-        // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que quiere enlazarse. Para obtener 
-        // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Upload(HttpPostedFileBase file)
+        public ActionResult Upload(HttpPostedFileBase[] files)
         {
-            if (file != null)
-            {           
-                if (ValidateFile(file))
-                {
-                    try
+            bool allValid = true;
+            string inValidFiles = "";
+            db.Database.Log = sql => Trace.WriteLine(sql);
+            if (files[0] != null)
+            {
+                            
+                if (files.Length <= 10)
+                {             
+                    foreach (var file in files)
                     {
-                        SaveFileToDisk(file);
-                    }
-                    catch (Exception)
+                        if (!ValidateFile(file))
+                        {
+                            allValid = false;
+                            inValidFiles += ", " + file.FileName;
+                        }
+                    }             
+                    if (allValid)
                     {
-                        ModelState.AddModelError("FileName", "Sorry an error occurred saving the file to disk, please try again"); 
+                        foreach (var file in files)
+                        {
+                            try
+                            {
+                                SaveFileToDisk(file);
+                            }
+                            catch (Exception)
+                            {
+                                ModelState.AddModelError("FileName", "Sorry an error occurred saving the files to disk, please try again");                                
+                            }
+                        }                      
+                    }            
+                    else
+                    {
+                        ModelState.AddModelError("FileName", "All files must be gif, png, jpeg or jpg and less than 2MB in size.The following files" + inValidFiles + " are not valid");               
                     }
                 }
                 else
                 {
-                    ModelState.AddModelError("FileName", "The file must be gif, png, jpeg or jpg and  less than 2MB in size"); 
+                    ModelState.AddModelError("FileName", "Please only upload up to ten files at a  time");  
                 }
             }
             else
-            {             
+            {  
                 ModelState.AddModelError("FileName", "Please choose a file");
             }
-
             if (ModelState.IsValid)
             {
-                db.ProductImages.Add(new ProductImage { FileName = file.FileName });
-                db.SaveChanges();
+                bool duplicates = false;
+                bool otherDbError = false;
+                string duplicateFiles = "";
+                foreach (var file in files)
+                {
+                    //try and save each file                
+                    var productToAdd = new ProductImage { FileName = file.FileName };
+                    try
+                    {
+                        db.ProductImages.Add(productToAdd);
+                        db.SaveChanges();
+                    }
+                    //if there is an exception check if it is caused by a duplicate file                
+                    catch (DbUpdateException ex)
+                    {
+                        SqlException innerException = ex.InnerException.InnerException as SqlException;
+                        if (innerException != null && innerException.Number == 2601)
+                        {
+                            duplicateFiles += ", " + file.FileName;
+                            duplicates = true;
+                            db.Entry(productToAdd).State = EntityState.Detached;
+                        }
+                        else
+                        {
+                            otherDbError = true;
+                        }
+                    }
+                }              
+                if (duplicates)
+                {
+                    ModelState.AddModelError("FileName", "All files uploaded except the files" + duplicateFiles + ", which already exist in the system." + " Please delete them and try again if you wish to re - add them");                                   
+                    return View();
+                }
+                else if (otherDbError)
+                {
+                    ModelState.AddModelError("FileName", "Sorry an error has occurred saving to the database, please try again");                                      
+                    return View();
+                }
                 return RedirectToAction("Index");
             }
-
             return View();
         }   
             
