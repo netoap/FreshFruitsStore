@@ -7,13 +7,13 @@ namespace FreshFruitsStore.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class Initial : IMigrationMetadata
+    public sealed partial class EmptyMigration : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(Initial));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(EmptyMigration));
         
         string IMigrationMetadata.Id
         {
-            get { return "202202211526549_Initial"; }
+            get { return "202203090932421_EmptyMigration"; }
         }
         
         string IMigrationMetadata.Source
