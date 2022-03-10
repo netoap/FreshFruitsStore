@@ -189,6 +189,10 @@
     <Compile Include="Migrations\202203090932421_EmptyMigration.Designer.cs">
       <DependentUpon>202203090932421_EmptyMigration.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202203090959279_CreateProductImageMappings.cs" />
+    <Compile Include="Migrations\202203090959279_CreateProductImageMappings.Designer.cs">
+      <DependentUpon>202203090959279_CreateProductImageMappings.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Category.cs" />
@@ -196,9 +200,11 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\ProductImage.cs" />
+    <Compile Include="Models\ProductImageMapping.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\ProductIndexViewModel.cs" />
+    <Compile Include="ViewModels\ProductViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
@@ -294,6 +300,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202203090932421_EmptyMigration.resx">
       <DependentUpon>202203090932421_EmptyMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202203090959279_CreateProductImageMappings.resx">
+      <DependentUpon>202203090959279_CreateProductImageMappings.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
