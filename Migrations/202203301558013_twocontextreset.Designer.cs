@@ -7,13 +7,13 @@ namespace FreshFruitsStore.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class CreateProductImageMappings : IMigrationMetadata
+    public sealed partial class twocontextreset : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(CreateProductImageMappings));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(twocontextreset));
         
         string IMigrationMetadata.Id
         {
-            get { return "202203281934110_CreateProductImageMappings"; }
+            get { return "202203301558013_twocontextreset"; }
         }
         
         string IMigrationMetadata.Source

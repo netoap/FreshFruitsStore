@@ -7,12 +7,14 @@
 
 <h2>@ViewBag.Title</h2>
 <p>
-    @(String.IsNullOrWhiteSpace(Model.Search) ? "Showing all" : "You search for " +  Model.Search + " found")
-    @Model.Products.TotalItemCount products
+    @(String.IsNullOrWhiteSpace(Model.Search) ? "Showing all" : "You search for " + Model.Search + " found")  @Model.Products.TotalItemCount products
 </p>
 
 <p>
-    @Html.ActionLink("Create New Product", "Create")
+    @if (Request.IsAuthenticated && User.IsInRole("Admin"))
+    {
+        @Html.ActionLink("Create New", "Create")
+    }
     @using (Html.BeginRouteForm("ProductsIndex", FormMethod.Get))
     {
         <label>Filter by category:</label>
@@ -48,11 +50,11 @@
                 @if (item.ProductImageMappings != null && item.ProductImageMappings.Any())
                 {
                     <a href="@Url.Action("Details", new { id = item.ID})">
-                        <img src="@(Url.Content(Constants.ProductImagePath) 
-                        + item.ProductImageMappings.OrderBy(pim => pim.ImageNumber).ElementAt(0).ProductImage.FileName)">
+                        <img src="@(Url.Content(Constants.ProductImagePath) + item.ProductImageMappings.OrderBy(pim => pim.ImageNumber).ElementAt(0).ProductImage.FileName)">
                     </a>
                 }
             </td>
+
             <td>
                 @Html.DisplayFor(modelItem => item.Category.Name)
             </td>
@@ -66,22 +68,19 @@
                 @Html.DisplayFor(modelItem => item.Price)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
-                @Html.ActionLink("Details", "Details", new { id = item.ID }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                @if (Request.IsAuthenticated && User.IsInRole("Admin"))
+                {
+                    @Html.ActionLink("Edit", "Edit", new { id = item.ID })
+                    @Html.Raw(" | ")
+                    @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                }
             </td>
         </tr>
     }
 
 </table>
 <div>
-    Page @(Model.Products.PageCount < Model.Products.PageNumber ? 0 : Model.Products.PageNumber) of @Model.Products.PageCount
-    @Html.PagedListPager(Model.Products, page => Url.Action("Index",
-    new
-    {
-        category = @Model.Category,
-        Search = @Model.Search,
-        sortBy = @Model.SortBy,
-        page
-    }))
+    Page @(Model.Products.PageCount < Model.Products.PageNumber ? 0 : Model.Products.PageNumber) of @Model.Products.PageCount
+    @Html.PagedListPager(Model.Products, page => Url.Action("Index", new { category = @Model.Category, Search = @Model.Search, sortBy = @Model.SortBy, page }))
 </div>
+

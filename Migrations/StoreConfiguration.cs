@@ -5,15 +5,14 @@ namespace FreshFruitsStore.Migrations
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<FreshFruitsStore.Models.ApplicationDbContext>
+    internal sealed class StoreConfiguration : DbMigrationsConfiguration<FreshFruitsStore.DAL.StoreContext>
     {
-        public Configuration()
+        public StoreConfiguration()
         {
             AutomaticMigrationsEnabled = false;
-            ContextKey = "FreshFruitsStore.Models.ApplicationDbContext";
         }
 
-        protected override void Seed(FreshFruitsStore.Models.ApplicationDbContext context)
+        protected override void Seed(FreshFruitsStore.DAL.StoreContext context)
         {
             //  This method will be called after migrating to the latest version.
 

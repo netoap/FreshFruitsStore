@@ -175,26 +175,31 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\CategoriesController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ProductImagesController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
+    <Compile Include="Controllers\RolesAdminController.cs" />
+    <Compile Include="Controllers\UsersAdminController.cs" />
     <Compile Include="DAL\StoreContext.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202203141426393_InitialDatabase.cs" />
-    <Compile Include="Migrations\202203141426393_InitialDatabase.Designer.cs">
-      <DependentUpon>202203141426393_InitialDatabase.cs</DependentUpon>
+    <Compile Include="Migrations\202203301311117_InitialCreate.cs" />
+    <Compile Include="Migrations\202203301311117_InitialCreate.Designer.cs">
+      <DependentUpon>202203301311117_InitialCreate.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202203281934110_CreateProductImageMappings.cs" />
-    <Compile Include="Migrations\202203281934110_CreateProductImageMappings.Designer.cs">
-      <DependentUpon>202203281934110_CreateProductImageMappings.cs</DependentUpon>
+    <Compile Include="Migrations\202203301558013_twocontextreset.cs" />
+    <Compile Include="Migrations\202203301558013_twocontextreset.Designer.cs">
+      <DependentUpon>202203301558013_twocontextreset.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Migrations\StoreConfiguration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Address.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -203,6 +208,7 @@
     <Compile Include="Models\ProductImageMapping.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\AdminViewModel.cs" />
     <Compile Include="ViewModels\ProductIndexViewModel.cs" />
     <Compile Include="ViewModels\ProductViewModel.cs" />
   </ItemGroup>
@@ -284,6 +290,22 @@
     <Content Include="Views\ProductImages\Index.cshtml" />
     <Content Include="Views\Error\FileUploadLimitExceeded.cshtml" />
     <Content Include="Views\Shared\_ProductEditCreatePartial.cshtml" />
+    <Content Include="Views\RolesAdmin\Index.cshtml" />
+    <Content Include="Views\RolesAdmin\Details.cshtml" />
+    <Content Include="Views\RolesAdmin\Create.cshtml" />
+    <Content Include="Views\RolesAdmin\Edit.cshtml" />
+    <Content Include="Views\RolesAdmin\Delete.cshtml" />
+    <Content Include="Views\Admin\Index.cshtml" />
+    <Content Include="Views\UsersAdmin\Index.cshtml" />
+    <Content Include="Views\UsersAdmin\Details.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\Address.cshtml" />
+    <Content Include="Views\UsersAdmin\Create.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Address.cshtml" />
+    <Content Include="Views\UsersAdmin\Edit.cshtml" />
+    <Content Include="Views\Shared\_CreateRegisterUserPartial.cshtml" />
+    <Content Include="Views\Shared\_UserDetailsPartial.cshtml" />
+    <Content Include="Views\Manage\Edit.cshtml" />
+    <Content Include="Views\Shared\_EditUserPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Content\ProductImages\Thumbnails\" />
@@ -302,11 +324,11 @@
     <Content Include="Scripts\jquery-3.4.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202203141426393_InitialDatabase.resx">
-      <DependentUpon>202203141426393_InitialDatabase.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202203301311117_InitialCreate.resx">
+      <DependentUpon>202203301311117_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202203281934110_CreateProductImageMappings.resx">
-      <DependentUpon>202203281934110_CreateProductImageMappings.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202203301558013_twocontextreset.resx">
+      <DependentUpon>202203301558013_twocontextreset.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
