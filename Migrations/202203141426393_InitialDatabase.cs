@@ -3,7 +3,7 @@ namespace FreshFruitsStore.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class EmptyMigration : DbMigration
+    public partial class InitialDatabase : DbMigration
     {
         public override void Up()
         {
@@ -31,6 +31,21 @@ namespace FreshFruitsStore.Migrations
                 .Index(t => t.CategoryID);
             
             CreateTable(
+                "dbo.ProductImageMappings",
+                c => new
+                    {
+                        ID = c.Int(nullable: false, identity: true),
+                        ImageNumber = c.Int(nullable: false),
+                        ProductID = c.Int(nullable: false),
+                        ProductImageID = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => t.ID)
+                .ForeignKey("dbo.Products", t => t.ProductID, cascadeDelete: true)
+                .ForeignKey("dbo.ProductImages", t => t.ProductImageID, cascadeDelete: true)
+                .Index(t => t.ProductID)
+                .Index(t => t.ProductImageID);
+            
+            CreateTable(
                 "dbo.ProductImages",
                 c => new
                     {
@@ -44,10 +59,15 @@ namespace FreshFruitsStore.Migrations
         
         public override void Down()
         {
+            DropForeignKey("dbo.ProductImageMappings", "ProductImageID", "dbo.ProductImages");
+            DropForeignKey("dbo.ProductImageMappings", "ProductID", "dbo.Products");
             DropForeignKey("dbo.Products", "CategoryID", "dbo.Categories");
             DropIndex("dbo.ProductImages", new[] { "FileName" });
+            DropIndex("dbo.ProductImageMappings", new[] { "ProductImageID" });
+            DropIndex("dbo.ProductImageMappings", new[] { "ProductID" });
             DropIndex("dbo.Products", new[] { "CategoryID" });
             DropTable("dbo.ProductImages");
+            DropTable("dbo.ProductImageMappings");
             DropTable("dbo.Products");
             DropTable("dbo.Categories");
         }

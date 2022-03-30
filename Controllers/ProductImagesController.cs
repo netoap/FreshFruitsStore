@@ -178,6 +178,7 @@ namespace FreshFruitsStore.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             ProductImage productImage = db.ProductImages.Find(id);
+
             if (productImage == null)
             {
                 return HttpNotFound();
@@ -191,6 +192,21 @@ namespace FreshFruitsStore.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             ProductImage productImage = db.ProductImages.Find(id);
+            var mappings = productImage.ProductImageMappings.Where(pim => pim.ProductImageID == id);
+            foreach (var mapping in mappings)
+            {
+                var mappingsToUpdate = db.ProductImageMappings.Where(pim => pim.ProductID ==
+                mapping.ProductID);
+                foreach (var mappingToUpdate in mappingsToUpdate)
+                {
+                    if (mappingToUpdate.ImageNumber > mapping.ImageNumber)
+                    {
+                        mappingToUpdate.ImageNumber--;
+                    }
+                }
+            }
+            System.IO.File.Delete(Request.MapPath(Constants.ProductImagePath + productImage.FileName));
+            System.IO.File.Delete(Request.MapPath(Constants.ProductThumbnailPath + productImage.FileName));
             db.ProductImages.Remove(productImage);
             db.SaveChanges();
             return RedirectToAction("Index");

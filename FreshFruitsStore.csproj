@@ -185,13 +185,13 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202203090932421_EmptyMigration.cs" />
-    <Compile Include="Migrations\202203090932421_EmptyMigration.Designer.cs">
-      <DependentUpon>202203090932421_EmptyMigration.cs</DependentUpon>
+    <Compile Include="Migrations\202203141426393_InitialDatabase.cs" />
+    <Compile Include="Migrations\202203141426393_InitialDatabase.Designer.cs">
+      <DependentUpon>202203141426393_InitialDatabase.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202203090959279_CreateProductImageMappings.cs" />
-    <Compile Include="Migrations\202203090959279_CreateProductImageMappings.Designer.cs">
-      <DependentUpon>202203090959279_CreateProductImageMappings.cs</DependentUpon>
+    <Compile Include="Migrations\202203281934110_CreateProductImageMappings.cs" />
+    <Compile Include="Migrations\202203281934110_CreateProductImageMappings.Designer.cs">
+      <DependentUpon>202203281934110_CreateProductImageMappings.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -207,6 +207,10 @@
     <Compile Include="ViewModels\ProductViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\store.mdf" />
+    <Content Include="App_Data\store_log.ldf">
+      <DependentUpon>store.mdf</DependentUpon>
+    </Content>
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -278,11 +282,11 @@
     <Content Include="Views\ProductImages\Details.cshtml" />
     <Content Include="Views\ProductImages\Edit.cshtml" />
     <Content Include="Views\ProductImages\Index.cshtml" />
+    <Content Include="Views\Error\FileUploadLimitExceeded.cshtml" />
+    <Content Include="Views\Shared\_ProductEditCreatePartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
     <Folder Include="Content\ProductImages\Thumbnails\" />
-    <Folder Include="Views\Error\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -298,11 +302,11 @@
     <Content Include="Scripts\jquery-3.4.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202203090932421_EmptyMigration.resx">
-      <DependentUpon>202203090932421_EmptyMigration.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202203141426393_InitialDatabase.resx">
+      <DependentUpon>202203141426393_InitialDatabase.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202203090959279_CreateProductImageMappings.resx">
-      <DependentUpon>202203090959279_CreateProductImageMappings.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202203281934110_CreateProductImageMappings.resx">
+      <DependentUpon>202203281934110_CreateProductImageMappings.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
